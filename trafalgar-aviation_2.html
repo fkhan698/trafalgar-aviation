@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trafalgar Aviation</title>
+<style>
+html { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root {
+    --bg: #F6F3EC;
+    --bg-panel: #EEE8D9;
+    --bg-panel-2: #E7E0CD;
+    --text: #171B22;
+    --text-muted: #5B6779;
+    --hero-bg: #1C2B43;
+    --hero-bg-2: #24344E;
+    --hero-text: #F3EFE4;
+    --hero-muted: #A9B7CC;
+    --accent: #A9762C;
+    --accent-strong: #8A5E20;
+    --accent-on-hero: #DFA758;
+    --border: #DAD3C0;
+    --border-strong: #C7BC9E;
+
+    --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+    --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10141B;
+      --bg-panel: #181F29;
+      --bg-panel-2: #1F2733;
+      --text: #EAE7DD;
+      --text-muted: #93A0B2;
+      --hero-bg: #0B0F15;
+      --hero-bg-2: #131A24;
+      --hero-text: #EDEAE1;
+      --hero-muted: #8B98AB;
+      --accent: #D79A46;
+      --accent-strong: #E8B36A;
+      --accent-on-hero: #E8B36A;
+      --border: #2A3341;
+      --border-strong: #3A4459;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10141B;
+    --bg-panel: #181F29;
+    --bg-panel-2: #1F2733;
+    --text: #EAE7DD;
+    --text-muted: #93A0B2;
+    --hero-bg: #0B0F15;
+    --hero-bg-2: #131A24;
+    --hero-text: #EDEAE1;
+    --hero-muted: #8B98AB;
+    --accent: #D79A46;
+    --accent-strong: #E8B36A;
+    --accent-on-hero: #E8B36A;
+    --border: #2A3341;
+    --border-strong: #3A4459;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 32px; }
+
+  .icon { width: 24px; height: 24px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* ---------- Nav ---------- */
+  nav.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .nav-wrap { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+  .nav-id { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(15px, 4vw, 17px); letter-spacing: 0.01em; color: var(--text); text-decoration: none; white-space: nowrap; }
+  .nav-right { display: flex; align-items: center; gap: 26px; }
+  .nav-links { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a, .mobile-links a { font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible, .mobile-links a:hover, .mobile-links a:focus-visible { color: var(--accent); }
+
+  .lang-switch { display: flex; gap: 4px; }
+  .lang-switch button {
+    background: none; border: 1px solid var(--border-strong); color: var(--text-muted);
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.03em;
+    padding: 5px 9px; border-radius: 3px; cursor: pointer; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .lang-switch button:hover, .lang-switch button:focus-visible { border-color: var(--accent); color: var(--accent); }
+  .lang-switch button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
+  .lang-switch button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .hamburger-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; justify-content: center; gap: 5px; }
+  .hamburger-btn .bar { display: block; width: 22px; height: 2px; background: var(--text); transition: transform 0.2s ease, opacity 0.2s ease; }
+  .hamburger-btn[aria-expanded="true"] .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger-btn[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+  .hamburger-btn[aria-expanded="true"] .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .hamburger-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  #mobileMenu { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--border); padding: 18px 24px 26px; flex-direction: column; gap: 20px; box-shadow: 0 12px 24px -12px rgba(0,0,0,0.25); }
+  .mobile-links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .mobile-links a { font-size: 13px; }
+  .mobile-lang { justify-content: flex-start; }
+
+  @media (max-width: 680px) {
+    .nav-right { display: none; }
+    .hamburger-btn { display: flex; }
+    #mobileMenu:not([hidden]) { display: flex; }
+  }
+  @media (min-width: 681px) {
+    #mobileMenu { display: none !important; }
+  }
+
+  section[id], .hero { scroll-margin-top: 66px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 56px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 56px),
+      linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg-2) 100%);
+    color: var(--hero-text);
+    padding-block: 76px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before, .hero::after {
+    content: ""; position: absolute; top: 26px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-on-hero); opacity: 0.85;
+  }
+  .hero::before { left: 24px; }
+  .hero::after { right: 24px; }
+  @media (min-width: 1240px) {
+    .hero::before { left: calc(50% - 566px); }
+    .hero::after { right: calc(50% - 566px); }
+  }
+
+  .hero-flight { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; opacity: 0.55; }
+  .hero-flight svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .flight-path { fill: none; stroke: var(--accent-on-hero); stroke-width: 2; stroke-dasharray: 7 9; opacity: 0.55; }
+  .flight-waypoint { fill: var(--accent-on-hero); opacity: 0.8; }
+  .flight-waypoint.pulse { animation: flight-pulse 2.6s ease-in-out infinite; }
+  .plane-group { transform-origin: center; animation: plane-float 4s ease-in-out infinite; }
+  .plane-icon { fill: var(--accent-on-hero); }
+  @keyframes plane-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes flight-pulse { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.25; } }
+  @media (prefers-reduced-motion: reduce) { .plane-group { animation: none; } .flight-waypoint.pulse { animation: none; opacity: 0.6; } }
+
+  .hero .wrap { position: relative; }
+  .hero .eyebrow { color: var(--accent-on-hero); margin: 0 0 18px; }
+
+  .wordmark { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.92; margin: 0; font-size: clamp(48px, 10vw, 92px); text-wrap: balance; }
+
+  .hero .tagline { margin: 22px 0 0; max-width: 48ch; font-size: 19px; font-style: italic; font-weight: 400; color: var(--hero-muted); line-height: 1.5; }
+
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 3px; font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 1px solid transparent; transition: filter 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease; cursor: pointer; }
+  .btn-primary { background: var(--accent-on-hero); color: var(--hero-bg); }
+  .btn-primary:hover, .btn-primary:focus-visible { filter: brightness(1.08); }
+  .btn-outline { color: var(--hero-text); border-color: var(--hero-muted); background: none; }
+  .btn-outline:hover, .btn-outline:focus-visible { border-color: var(--accent-on-hero); color: var(--accent-on-hero); }
+  .btn-accent { background: var(--accent); color: var(--hero-bg); }
+  .btn-accent:hover, .btn-accent:focus-visible { filter: brightness(1.08); }
+  .btn:focus-visible { outline: 2px solid var(--accent-on-hero); outline-offset: 3px; }
+
+  /* ---------- Trust band ---------- */
+  .trust-band { background: var(--bg-panel); border-bottom: 1px solid var(--border); padding-block: 26px; }
+  .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 20px; }
+  .trust-item { display: flex; align-items: center; gap: 12px; }
+  .trust-item .icon { color: var(--accent); }
+  .trust-item span { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text); }
+
+  /* ---------- Sections ---------- */
+  section.block { padding-block: 56px; border-bottom: 1px solid var(--border); }
+  section.block:last-of-type { border-bottom: none; }
+  .block .eyebrow { color: var(--accent); margin: 0 0 10px; }
+
+  h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; font-size: clamp(26px, 4vw, 34px); margin: 0 0 18px; text-wrap: balance; }
+
+  p.lede { font-size: 17px; line-height: 1.7; max-width: 62ch; color: var(--text); margin: 0; }
+
+  /* ---------- About ---------- */
+  .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 36px; align-items: start; }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-stats { display: flex; flex-direction: column; gap: 14px; }
+  .stat-tile { background: var(--bg-panel); border: 1px solid var(--border-strong); border-radius: 4px; padding: 20px 22px; }
+  .stat-num { display: block; font-family: var(--font-display); font-weight: 800; font-size: 27px; letter-spacing: 0.01em; color: var(--accent); text-transform: uppercase; }
+  .stat-label { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* ---------- Inventory grid ---------- */
+  .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(178px, 1fr)); gap: 14px; margin-top: 28px; }
+  .inv-card { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px 16px; background: var(--bg-panel); border: 1px solid var(--border-strong); border-radius: 4px; }
+  .inv-card .icon { color: var(--accent); }
+  .inv-card .num { position: absolute; top: 12px; right: 14px; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted); font-weight: 600; }
+  .inv-card .label { font-size: 14.5px; font-weight: 600; color: var(--text); line-height: 1.3; }
+
+  /* ---------- Sourcing placard ---------- */
+  .placard { background: var(--bg-panel); border: 1px solid var(--border-strong); border-radius: 4px; padding: 32px clamp(20px, 4vw, 40px); position: relative; }
+  .placard::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--border); border-radius: 2px; pointer-events: none; }
+  .placard h2 { margin-bottom: 14px; }
+  .placard p.lede { margin-bottom: 22px; }
+  .channel-tag { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-strong); border: 1px solid var(--accent); border-radius: 3px; padding: 8px 14px; }
+  .channel-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  /* ---------- Contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin: 28px 0 30px; }
+  .contact-card { display: flex; flex-direction: column; gap: 10px; padding: 22px 20px; background: var(--bg-panel); border: 1px solid var(--border-strong); border-radius: 4px; }
+  .contact-card .icon { color: var(--accent); }
+  .contact-card .c-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .contact-card .c-value { font-size: 17px; font-weight: 600; color: var(--text); text-decoration: none; }
+  a.c-value:hover { color: var(--accent-strong); }
+  a.c-value:focus-visible { color: var(--accent-strong); outline: 2px solid var(--accent-strong); outline-offset: 3px; border-radius: 2px; }
+
+  .inquiry-form { background: var(--bg-panel); border: 1px solid var(--border-strong); border-radius: 4px; padding: 28px 26px 26px; }
+  .inquiry-form h3 { margin: 0 0 20px; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; font-size: 22px; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; margin-bottom: 20px; }
+  .form-field { display: flex; flex-direction: column; gap: 7px; }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+  .form-field input, .form-field textarea { font-family: var(--font-body); font-size: 15px; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 11px 13px; }
+  .form-field textarea { resize: vertical; min-height: 92px; }
+  .form-field input:focus-visible, .form-field textarea:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 1px; border-color: var(--accent-strong); }
+  .form-note { font-size: 13px; color: var(--text-muted); margin: 16px 0 0; max-width: 52ch; }
+
+  /* ---------- Footer ---------- */
+  footer { padding-block: 32px 44px; }
+  .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .footer-id { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 18px; letter-spacing: 0.01em; }
+  .footer-id + span { display: block; font-size: 13px; color: var(--text-muted); font-family: var(--font-body); margin-top: 2px; }
+  a.source-link { font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: color 0.15s ease, border-color 0.15s ease; }
+  a.source-link:hover, a.source-link:focus-visible { color: var(--accent-strong); border-color: var(--accent-strong); }
+  a.source-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  .copyright { font-size: 12px; color: var(--text-muted); margin-top: 18px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <div class="wrap nav-wrap">
+    <a class="nav-id" href="#top">Trafalgar Aviation</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#inventory" data-i18n="nav.inventory">Inventory</a></li>
+        <li><a href="#sourcing" data-i18n="nav.sourcing">Sourcing</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="es" aria-pressed="false">ES</button>
+        <button type="button" data-lang-btn="pt" aria-pressed="false">PT</button>
+      </div>
+    </div>
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+    <div id="mobileMenu" class="mobile-menu" hidden>
+      <ul class="mobile-links">
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#inventory" data-i18n="nav.inventory">Inventory</a></li>
+        <li><a href="#sourcing" data-i18n="nav.sourcing">Sourcing</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-switch mobile-lang" role="group" aria-label="Language">
+        <button type="button" data-lang-btn="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang-btn="es" aria-pressed="false">ES</button>
+        <button type="button" data-lang-btn="pt" aria-pressed="false">PT</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="hero" id="top">
+  <div class="hero-flight" aria-hidden="true">
+    <svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice">
+      <path class="flight-path" d="M150,460 Q480,380 620,130"/>
+      <circle class="flight-waypoint" cx="150" cy="460" r="5"/>
+      <circle class="flight-waypoint pulse" cx="620" cy="130" r="5"/>
+      <g transform="translate(432.5,337.5) rotate(-35) scale(0.6)">
+        <g class="plane-group">
+          <path class="plane-icon" transform="translate(-32,-32)" d="M32 2c-1.1 0-2 .9-2 2v9.5L5 24v4l25-7.5V33l-6 4.5V41l8-2 8 2v-3.5l-6-4.5V20.5L59 28v-4L34 13.5V4c0-1.1-.9-2-2-2z"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="hero.eyebrow">Aviation Parts Division of Trafalgar</p>
+    <h1 class="wordmark">Trafalgar<br>Aviation</h1>
+    <p class="tagline" data-i18n="hero.tagline">New, unused OEM aircraft parts, sourced and documented from the ground up &mdash; ready to help repair stations, operators, and fellow distributors find what they need.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#inventory" data-i18n="hero.cta1">View Inventory</a>
+      <a class="btn btn-outline" href="#contact" data-i18n="hero.cta2">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="trust-band">
+  <div class="wrap trust-grid">
+    <div class="trust-item">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.2"/><path d="M9 12l2 2 4-5"/></svg>
+      <span data-i18n="trust.doc">Verified Documentation</span>
+    </div>
+    <div class="trust-item">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7l3 5-3 5-3-5z"/></svg>
+      <span data-i18n="trust.channel">Boeing Distribution Channel</span>
+    </div>
+    <div class="trust-item">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 21S5 13.7 5 9.2A7 7 0 0 1 19 9.2C19 13.7 12 21 12 21z"/><circle cx="12" cy="9.2" r="2.4"/></svg>
+      <span data-i18n="trust.location">St. Louis, MO, USA</span>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="eyebrow" data-i18n="about.eyebrow">About</p>
+      <h2 data-i18n="about.heading">About Trafalgar Aviation</h2>
+      <p class="lede" data-i18n="about.body">Trafalgar Aviation is the aviation parts division of Trafalgar Oil &amp; Gas, and has served aircraft clients across Latin America and the United States since 2015. We bring that same regional reach, and the relationships built over a decade of cross-border business, to sourcing genuine aircraft parts for operators, repair stations, and distributors throughout the hemisphere.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-tile">
+        <span class="stat-num">2015</span>
+        <span class="stat-label" data-i18n="about.since">Serving Clients Since</span>
+      </div>
+      <div class="stat-tile">
+        <span class="stat-num" data-i18n="about.coverageValue">LATAM + US</span>
+        <span class="stat-label" data-i18n="about.coverage">Regional Coverage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="inventory">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="inventory.eyebrow">Inventory</p>
+    <h2 data-i18n="inventory.heading">What We Carry</h2>
+    <p class="lede" data-i18n="inventory.lede">Trafalgar Aviation sources genuine, unused aircraft parts for repair stations, operators, and fellow distributors &mdash; across the categories below, all sourced through Boeing&rsquo;s distribution channel. Every part ships with the documentation it arrived with &mdash; no gaps, no guesswork.</p>
+    <div class="inv-grid">
+      <div class="inv-card"><span class="num">01</span><svg class="icon" viewBox="0 0 24 24"><path d="M21 3 3 10.5l7.5 3L14 21l7-18z"/><path d="M10.5 13.5 21 3"/></svg><span class="label" data-i18n="inv.01">Airframe Parts</span></div>
+      <div class="inv-card"><span class="num">02</span><svg class="icon" viewBox="0 0 24 24"><path d="M9 3h6M10 3v5l-5.5 10A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.8-2.9L14 8V3"/><path d="M8 14h8"/></svg><span class="label" data-i18n="inv.02">Chemicals &amp; Consumables</span></div>
+      <div class="inv-card"><span class="num">03</span><svg class="icon" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg><span class="label" data-i18n="inv.03">Electrical Components</span></div>
+      <div class="inv-card"><span class="num">04</span><svg class="icon" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.2 8.3-7 10-3.8-1.7-7-5-7-10V6l7-3z"/><path d="M12 9v6M9 12h6"/></svg><span class="label" data-i18n="inv.04">Emergency &amp; Safety</span></div>
+      <div class="inv-card"><span class="num">05</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 4.5v2M12 17.5v2M4.5 12h2M17.5 12h2"/></svg><span class="label" data-i18n="inv.05">Engines</span></div>
+      <div class="inv-card"><span class="num">06</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 13l3.5-3.5M8.5 5.5l1 2M15.5 5.5l-1 2"/></svg><span class="label" data-i18n="inv.06">Ground Support &amp; Test Equipment</span></div>
+      <div class="inv-card"><span class="num">07</span><svg class="icon" viewBox="0 0 24 24"><path d="M8 4h8l3 6-3 6H8l-3-6z"/><circle cx="12" cy="10" r="2.6"/></svg><span class="label" data-i18n="inv.07">Hardware &amp; Hoses</span></div>
+      <div class="inv-card"><span class="num">08</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><circle cx="12" cy="15" r="1.4"/><path d="M12 9V4M9 5h6"/></svg><span class="label" data-i18n="inv.08">Landing Gear</span></div>
+      <div class="inv-card"><span class="num">09</span><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="10" r="6"/><path d="M9.5 18h5M10.3 21h3.4"/><path d="M10 8l4 4M14 8l-4 4"/></svg><span class="label" data-i18n="inv.09">Lighting</span></div>
+      <div class="inv-card"><span class="num">10</span><svg class="icon" viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 14 0"/><rect x="3.2" y="12" width="3.2" height="6.5" rx="1.2"/><rect x="17.6" y="12" width="3.2" height="6.5" rx="1.2"/><path d="M6.4 18.5q4 3 8 0"/></svg><span class="label" data-i18n="inv.10">Pilot Supplies</span></div>
+      <div class="inv-card"><span class="num">11</span><svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 1 5.4-5.4l-3-3z"/></svg><span class="label" data-i18n="inv.11">Tools</span></div>
+      <div class="inv-card"><span class="num">12</span><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="13" rx="1.5"/><circle cx="9" cy="11.5" r="2.2"/><path d="M13.5 9.5h4M13.5 13h4"/></svg><span class="label" data-i18n="inv.12">Avionics &amp; Instruments</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="sourcing">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="sourcing.eyebrow">Sourcing</p>
+    <div class="placard">
+      <h2 data-i18n="sourcing.heading">Genuine Parts, Verified Source</h2>
+      <p class="lede" data-i18n="sourcing.body">Every part we sell is sourced through Boeing&rsquo;s official distribution channel &mdash; the same primary channel used by repair stations and operators across the industry. That means clean paperwork and a traceable chain of custody on every order, from the first sheet on down.</p>
+      <span class="channel-tag"><span class="dot"></span><span data-i18n="sourcing.tag">Channel: Boeing Distribution</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+    <h2 data-i18n="contact.heading">Get In Touch</h2>
+    <p class="lede" data-i18n="contact.lede">Have a part number in mind, or need help sourcing something specific? Reach out below &mdash; we&rsquo;re glad to help.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span class="c-label" data-i18n="contact.email">Email</span>
+        <a class="c-value" href="mailto:fkhan698@hotmail.com?subject=Parts%20Inquiry">fkhan698@hotmail.com</a>
+      </div>
+      <div class="contact-card">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.4-2.4c.3-.3.8-.4 1.2-.2 1.2.5 2.5.8 3.8.9.6 0 1.1.5 1.1 1.1v3.5c0 .6-.5 1.1-1.1 1.1C10.9 21.4 3 13.5 3 3.8c0-.6.5-1.1 1.1-1.1h3.5c.6 0 1.1.5 1.1 1.1.1 1.3.4 2.6.9 3.8.2.4.1.9-.2 1.2l-2.8 2.9z"/></svg>
+        <span class="c-label" data-i18n="contact.phone">Phone</span>
+        <a class="c-value" href="tel:+14173796157">417-379-6157</a>
+      </div>
+      <div class="contact-card">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 21S5 13.7 5 9.2A7 7 0 0 1 19 9.2C19 13.7 12 21 12 21z"/><circle cx="12" cy="9.2" r="2.4"/></svg>
+        <span class="c-label" data-i18n="contact.location">Location</span>
+        <span class="c-value">St. Louis, MO</span>
+      </div>
+    </div>
+    <form class="inquiry-form" id="inquiryForm">
+      <h3 data-i18n="form.heading">Request a Quote</h3>
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="inqName" data-i18n="form.name">Name *</label>
+          <input type="text" id="inqName" name="name" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="inqEmail" data-i18n="form.email">Email *</label>
+          <input type="email" id="inqEmail" name="email" autocomplete="email" required>
+        </div>
+        <div class="form-field">
+          <label for="inqPhone" data-i18n="form.phone">Phone</label>
+          <input type="tel" id="inqPhone" name="phone" autocomplete="tel">
+        </div>
+        <div class="form-field">
+          <label for="inqQty" data-i18n="form.qty">Quantity</label>
+          <input type="text" id="inqQty" name="qty">
+        </div>
+        <div class="form-field full">
+          <label for="inqPart" data-i18n="form.part">Part Number / Description *</label>
+          <input type="text" id="inqPart" name="part" required>
+        </div>
+        <div class="form-field full">
+          <label for="inqMessage" data-i18n="form.message">Additional Details</label>
+          <textarea id="inqMessage" name="message" rows="4"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-accent" data-i18n="form.submit">Send Inquiry</button>
+      <p class="form-note" data-i18n="form.note">This opens your email app with your inquiry pre-filled, addressed directly to us.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div>
+        <span class="footer-id">Trafalgar Aviation</span>
+        <span data-i18n="footer.division">A division of Trafalgar</span>
+      </div>
+      <a class="source-link" href="https://www.boeingdistribution.com/" target="_blank" rel="noopener">Boeing Distribution &#8599;</a>
+    </div>
+    <p class="copyright" data-i18n="footer.copyright">&copy; 2026 Trafalgar Aviation.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var translations = {
+    es: {
+      "nav.about": "Nosotros", "nav.inventory": "Inventario", "nav.sourcing": "Abastecimiento", "nav.contact": "Contacto",
+      "hero.eyebrow": "División de Repuestos Aeronáuticos de Trafalgar",
+      "hero.tagline": "Repuestos aeronáuticos OEM nuevos y sin usar, obtenidos y documentados desde el origen &mdash; listos para ayudar a estaciones de reparación, operadores y distribuidores a encontrar lo que necesitan.",
+      "hero.cta1": "Ver Inventario", "hero.cta2": "Contáctenos",
+      "trust.doc": "Documentación Verificada", "trust.channel": "Canal de Boeing Distribution", "trust.location": "St. Louis, MO, EE. UU.",
+      "about.eyebrow": "Nosotros", "about.heading": "Sobre Trafalgar Aviation",
+      "about.body": "Trafalgar Aviation es la división de repuestos aeronáuticos de Trafalgar Oil &amp; Gas, y ha atendido a clientes de aviación en América Latina y Estados Unidos desde 2015. Aportamos ese mismo alcance regional, y las relaciones construidas a lo largo de una década de negocios transfronterizos, al abastecimiento de repuestos aeronáuticos genuinos para operadores, estaciones de reparación y distribuidores en todo el hemisferio.",
+      "about.since": "Atendiendo Clientes Desde", "about.coverage": "Cobertura Regional", "about.coverageValue": "LATAM + EE. UU.",
+      "inventory.eyebrow": "Inventario", "inventory.heading": "Lo Que Ofrecemos",
+      "inventory.lede": "Trafalgar Aviation abastece repuestos aeronáuticos genuinos y sin usar para estaciones de reparación, operadores y otros distribuidores &mdash; en las categorías a continuación, todas obtenidas a través del canal de distribución de Boeing. Cada repuesto se envía con la documentación con la que llegó &mdash; sin vacíos, sin conjeturas.",
+      "inv.01": "Piezas de Fuselaje", "inv.02": "Químicos y Consumibles", "inv.03": "Componentes Eléctricos",
+      "inv.04": "Emergencia y Seguridad", "inv.05": "Motores", "inv.06": "Equipo de Apoyo en Tierra y Pruebas",
+      "inv.07": "Herrajes y Mangueras", "inv.08": "Tren de Aterrizaje", "inv.09": "Iluminación",
+      "inv.10": "Suministros para Pilotos", "inv.11": "Herramientas", "inv.12": "Aviónica e Instrumentos",
+      "sourcing.eyebrow": "Abastecimiento", "sourcing.heading": "Repuestos Genuinos, Fuente Verificada",
+      "sourcing.body": "Cada repuesto que vendemos se obtiene a través del canal oficial de distribución de Boeing &mdash; el mismo canal principal utilizado por estaciones de reparación y operadores en toda la industria. Esto significa documentación clara y una cadena de custodia rastreable en cada pedido, desde el primer papel.",
+      "sourcing.tag": "Canal: Boeing Distribution",
+      "contact.eyebrow": "Contacto", "contact.heading": "Póngase en Contacto",
+      "contact.lede": "¿Tiene un número de parte en mente, o necesita ayuda para conseguir algo específico? Escríbanos a continuación &mdash; con gusto le ayudamos.",
+      "contact.email": "Correo Electrónico", "contact.phone": "Teléfono", "contact.location": "Ubicación", "contact.cta": "Enviar un Correo",
+      "form.heading": "Solicitar una Cotización", "form.name": "Nombre *", "form.email": "Correo Electrónico *", "form.phone": "Teléfono",
+      "form.qty": "Cantidad", "form.part": "Número de Parte / Descripción *", "form.message": "Detalles Adicionales",
+      "form.submit": "Enviar Consulta", "form.note": "Esto abrirá su aplicación de correo con su consulta ya completada, dirigida directamente a nosotros.",
+      "footer.division": "Una división de Trafalgar", "footer.copyright": "© 2026 Trafalgar Aviation."
+    },
+    pt: {
+      "nav.about": "Sobre", "nav.inventory": "Inventário", "nav.sourcing": "Fornecimento", "nav.contact": "Contato",
+      "hero.eyebrow": "Divisão de Peças Aeronáuticas da Trafalgar",
+      "hero.tagline": "Peças aeronáuticas OEM novas e não utilizadas, obtidas e documentadas desde a origem &mdash; prontas para ajudar oficinas de manutenção, operadores e distribuidores a encontrar o que precisam.",
+      "hero.cta1": "Ver Inventário", "hero.cta2": "Fale Conosco",
+      "trust.doc": "Documentação Verificada", "trust.channel": "Canal Boeing Distribution", "trust.location": "St. Louis, MO, EUA",
+      "about.eyebrow": "Sobre", "about.heading": "Sobre a Trafalgar Aviation",
+      "about.body": "A Trafalgar Aviation é a divisão de peças aeronáuticas da Trafalgar Oil &amp; Gas, e atende clientes de aviação na América Latina e nos Estados Unidos desde 2015. Trazemos esse mesmo alcance regional, e os relacionamentos construídos ao longo de uma década de negócios transfronteiriços, para o fornecimento de peças aeronáuticas genuínas a operadores, oficinas de manutenção e distribuidores em todo o hemisfério.",
+      "about.since": "Atendendo Clientes Desde", "about.coverage": "Cobertura Regional", "about.coverageValue": "LATAM + EUA",
+      "inventory.eyebrow": "Inventário", "inventory.heading": "O Que Oferecemos",
+      "inventory.lede": "A Trafalgar Aviation fornece peças aeronáuticas genuínas e não utilizadas para oficinas de manutenção, operadores e outros distribuidores &mdash; nas categorias abaixo, todas obtidas através do canal de distribuição da Boeing. Cada peça é enviada com a documentação com que chegou &mdash; sem lacunas, sem suposições.",
+      "inv.01": "Peças de Fuselagem", "inv.02": "Produtos Químicos e Consumíveis", "inv.03": "Componentes Elétricos",
+      "inv.04": "Emergência e Segurança", "inv.05": "Motores", "inv.06": "Equipamento de Apoio em Solo e Testes",
+      "inv.07": "Ferragens e Mangueiras", "inv.08": "Trem de Pouso", "inv.09": "Iluminação",
+      "inv.10": "Suprimentos para Pilotos", "inv.11": "Ferramentas", "inv.12": "Aviônicos e Instrumentos",
+      "sourcing.eyebrow": "Fornecimento", "sourcing.heading": "Peças Genuínas, Fonte Verificada",
+      "sourcing.body": "Cada peça que vendemos é obtida através do canal oficial de distribuição da Boeing &mdash; o mesmo canal principal usado por oficinas de manutenção e operadores em todo o setor. Isso significa documentação limpa e uma cadeia de custódia rastreável em cada pedido, desde a primeira folha.",
+      "sourcing.tag": "Canal: Boeing Distribution",
+      "contact.eyebrow": "Contato", "contact.heading": "Entre em Contato",
+      "contact.lede": "Tem um número de peça em mente, ou precisa de ajuda para encontrar algo específico? Fale conosco abaixo &mdash; teremos prazer em ajudar.",
+      "contact.email": "E-mail", "contact.phone": "Telefone", "contact.location": "Localização", "contact.cta": "Enviar E-mail",
+      "form.heading": "Solicitar Cotação", "form.name": "Nome *", "form.email": "E-mail *", "form.phone": "Telefone",
+      "form.qty": "Quantidade", "form.part": "Número da Peça / Descrição *", "form.message": "Detalhes Adicionais",
+      "form.submit": "Enviar Consulta", "form.note": "Isso abrirá seu aplicativo de e-mail com sua consulta já preenchida, endereçada diretamente a nós.",
+      "footer.division": "Uma divisão da Trafalgar", "footer.copyright": "© 2026 Trafalgar Aviation."
+    },
+    en: {
+      "nav.about": "About", "nav.inventory": "Inventory", "nav.sourcing": "Sourcing", "nav.contact": "Contact",
+      "hero.eyebrow": "Aviation Parts Division of Trafalgar",
+      "hero.tagline": "New, unused OEM aircraft parts, sourced and documented from the ground up &mdash; ready to help repair stations, operators, and fellow distributors find what they need.",
+      "hero.cta1": "View Inventory", "hero.cta2": "Contact Us",
+      "trust.doc": "Verified Documentation", "trust.channel": "Boeing Distribution Channel", "trust.location": "St. Louis, MO, USA",
+      "about.eyebrow": "About", "about.heading": "About Trafalgar Aviation",
+      "about.body": "Trafalgar Aviation is the aviation parts division of Trafalgar Oil &amp; Gas, and has served aircraft clients across Latin America and the United States since 2015. We bring that same regional reach, and the relationships built over a decade of cross-border business, to sourcing genuine aircraft parts for operators, repair stations, and distributors throughout the hemisphere.",
+      "about.since": "Serving Clients Since", "about.coverage": "Regional Coverage", "about.coverageValue": "LATAM + US",
+      "inventory.eyebrow": "Inventory", "inventory.heading": "What We Carry",
+      "inventory.lede": "Trafalgar Aviation sources genuine, unused aircraft parts for repair stations, operators, and fellow distributors &mdash; across the categories below, all sourced through Boeing&rsquo;s distribution channel. Every part ships with the documentation it arrived with &mdash; no gaps, no guesswork.",
+      "inv.01": "Airframe Parts", "inv.02": "Chemicals &amp; Consumables", "inv.03": "Electrical Components",
+      "inv.04": "Emergency &amp; Safety", "inv.05": "Engines", "inv.06": "Ground Support &amp; Test Equipment",
+      "inv.07": "Hardware &amp; Hoses", "inv.08": "Landing Gear", "inv.09": "Lighting",
+      "inv.10": "Pilot Supplies", "inv.11": "Tools", "inv.12": "Avionics &amp; Instruments",
+      "sourcing.eyebrow": "Sourcing", "sourcing.heading": "Genuine Parts, Verified Source",
+      "sourcing.body": "Every part we sell is sourced through Boeing&rsquo;s official distribution channel &mdash; the same primary channel used by repair stations and operators across the industry. That means clean paperwork and a traceable chain of custody on every order, from the first sheet on down.",
+      "sourcing.tag": "Channel: Boeing Distribution",
+      "contact.eyebrow": "Contact", "contact.heading": "Get In Touch",
+      "contact.lede": "Have a part number in mind, or need help sourcing something specific? Reach out below &mdash; we&rsquo;re glad to help.",
+      "contact.email": "Email", "contact.phone": "Phone", "contact.location": "Location", "contact.cta": "Send an Email",
+      "form.heading": "Request a Quote", "form.name": "Name *", "form.email": "Email *", "form.phone": "Phone",
+      "form.qty": "Quantity", "form.part": "Part Number / Description *", "form.message": "Additional Details",
+      "form.submit": "Send Inquiry", "form.note": "This opens your email app with your inquiry pre-filled, addressed directly to us.",
+      "footer.division": "A division of Trafalgar", "footer.copyright": "&copy; 2026 Trafalgar Aviation."
+    }
+  };
+
+  function applyLang(lang) {
+    if (!translations[lang]) lang = 'en';
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      var val = translations[lang][key];
+      if (val) el.innerHTML = val;
+    });
+    document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', btn.getAttribute('data-lang-btn') === lang ? 'true' : 'false');
+    });
+    try { localStorage.setItem('ta_lang', lang); } catch (e) {}
+    try { document.documentElement.setAttribute('lang', lang); } catch (e) {}
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function (btn) {
+    btn.addEventListener('click', function () { applyLang(btn.getAttribute('data-lang-btn')); });
+  });
+
+  var initial = 'en';
+  try {
+    var saved = localStorage.getItem('ta_lang');
+    if (saved && translations[saved]) initial = saved;
+  } catch (e) {}
+  applyLang(initial);
+
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (hamburgerBtn && mobileMenu) {
+    hamburgerBtn.addEventListener('click', function () {
+      var open = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+      hamburgerBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      mobileMenu.hidden = open;
+    });
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        mobileMenu.hidden = true;
+      });
+    });
+  }
+
+  var inquiryForm = document.getElementById('inquiryForm');
+  if (inquiryForm) {
+    inquiryForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('inqName').value.trim();
+      var email = document.getElementById('inqEmail').value.trim();
+      var phone = document.getElementById('inqPhone').value.trim();
+      var qty = document.getElementById('inqQty').value.trim();
+      var part = document.getElementById('inqPart').value.trim();
+      var message = document.getElementById('inqMessage').value.trim();
+
+      var lines = ['Name: ' + name, 'Email: ' + email];
+      if (phone) lines.push('Phone: ' + phone);
+      lines.push('Part Number / Description: ' + part);
+      if (qty) lines.push('Quantity: ' + qty);
+      if (message) lines.push('', 'Additional Details:', message);
+
+      var subject = 'Parts Inquiry from ' + name;
+      var mailto = 'mailto:fkhan698@hotmail.com'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(lines.join('\n'));
+      window.location.href = mailto;
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
