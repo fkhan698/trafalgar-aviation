@@ -244,6 +244,8 @@ img { max-width: 100%; }
   .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; padding-top: 24px; border-top: 1px solid var(--border); }
   .footer-id { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 18px; letter-spacing: 0.01em; }
   .footer-id + span { display: block; font-size: 13px; color: var(--text-muted); font-family: var(--font-body); margin-top: 2px; }
+  .footer-id + span a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--accent); transition: color 0.15s ease, border-color 0.15s ease; }
+  .footer-id + span a:hover, .footer-id + span a:focus-visible { color: var(--accent-strong); border-color: var(--accent-strong); }
   a.source-link { font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: color 0.15s ease, border-color 0.15s ease; }
   a.source-link:hover, a.source-link:focus-visible { color: var(--accent-strong); border-color: var(--accent-strong); }
   a.source-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
@@ -306,7 +308,7 @@ img { max-width: 100%; }
     <h1 class="wordmark">Trafalgar<br>Aviation</h1>
     <p class="tagline" data-i18n="hero.tagline">New, unused OEM aircraft parts, sourced and documented from the ground up &mdash; ready to help repair stations, operators, and fellow distributors find what they need.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="#inventory" data-i18n="hero.cta1">View Inventory</a>
+      <a class="btn btn-primary" href="https://www.boeingdistribution.com/" target="_blank" rel="noopener noreferrer" data-i18n="hero.cta1">View Inventory</a>
       <a class="btn btn-outline" href="#contact" data-i18n="hero.cta2">Contact Us</a>
     </div>
   </div>
@@ -391,12 +393,12 @@ img { max-width: 100%; }
       <div class="contact-card">
         <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         <span class="c-label" data-i18n="contact.email">Email</span>
-        <a class="c-value" href="mailto:fkhan698@hotmail.com?subject=Parts%20Inquiry">fkhan698@hotmail.com</a>
+        <a class="c-value" href="mailto:Info@consulttrafalgar.com?subject=Parts%20Inquiry">Info@consulttrafalgar.com</a>
       </div>
       <div class="contact-card">
         <svg class="icon" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.4-2.4c.3-.3.8-.4 1.2-.2 1.2.5 2.5.8 3.8.9.6 0 1.1.5 1.1 1.1v3.5c0 .6-.5 1.1-1.1 1.1C10.9 21.4 3 13.5 3 3.8c0-.6.5-1.1 1.1-1.1h3.5c.6 0 1.1.5 1.1 1.1.1 1.3.4 2.6.9 3.8.2.4.1.9-.2 1.2l-2.8 2.9z"/></svg>
         <span class="c-label" data-i18n="contact.phone">Phone</span>
-        <a class="c-value" href="tel:+14173796157">417-379-6157</a>
+        <a class="c-value" href="tel:+13144993717">1-314-499-3717</a>
       </div>
       <div class="contact-card">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 21S5 13.7 5 9.2A7 7 0 0 1 19 9.2C19 13.7 12 21 12 21z"/><circle cx="12" cy="9.2" r="2.4"/></svg>
@@ -443,7 +445,7 @@ img { max-width: 100%; }
     <div class="footer-row">
       <div>
         <span class="footer-id">Trafalgar Aviation</span>
-        <span data-i18n="footer.division">A division of Trafalgar</span>
+        <span data-i18n="footer.division">A division of <a href="https://trafalgarfuels.com/" target="_blank" rel="noopener">Trafalgar</a></span>
       </div>
       <a class="source-link" href="https://www.boeingdistribution.com/" target="_blank" rel="noopener">Boeing Distribution &#8599;</a>
     </div>
@@ -478,7 +480,7 @@ img { max-width: 100%; }
       "form.heading": "Solicitar una Cotización", "form.name": "Nombre *", "form.email": "Correo Electrónico *", "form.phone": "Teléfono",
       "form.qty": "Cantidad", "form.part": "Número de Parte / Descripción *", "form.message": "Detalles Adicionales",
       "form.submit": "Enviar Consulta", "form.note": "Esto abrirá su aplicación de correo con su consulta ya completada, dirigida directamente a nosotros.",
-      "footer.division": "Una división de Trafalgar", "footer.copyright": "© 2026 Trafalgar Aviation."
+      "footer.division": "Una división de <a href=\"https://trafalgarfuels.com/\" target=\"_blank\" rel=\"noopener\">Trafalgar</a>", "footer.copyright": "© 2026 Trafalgar Aviation."
     },
     pt: {
       "nav.about": "Sobre", "nav.inventory": "Inventário", "nav.sourcing": "Fornecimento", "nav.contact": "Contato",
@@ -504,7 +506,7 @@ img { max-width: 100%; }
       "form.heading": "Solicitar Cotação", "form.name": "Nome *", "form.email": "E-mail *", "form.phone": "Telefone",
       "form.qty": "Quantidade", "form.part": "Número da Peça / Descrição *", "form.message": "Detalhes Adicionais",
       "form.submit": "Enviar Consulta", "form.note": "Isso abrirá seu aplicativo de e-mail com sua consulta já preenchida, endereçada diretamente a nós.",
-      "footer.division": "Uma divisão da Trafalgar", "footer.copyright": "© 2026 Trafalgar Aviation."
+      "footer.division": "Uma divisão da <a href=\"https://trafalgarfuels.com/\" target=\"_blank\" rel=\"noopener\">Trafalgar</a>", "footer.copyright": "© 2026 Trafalgar Aviation."
     },
     en: {
       "nav.about": "About", "nav.inventory": "Inventory", "nav.sourcing": "Sourcing", "nav.contact": "Contact",
@@ -530,7 +532,7 @@ img { max-width: 100%; }
       "form.heading": "Request a Quote", "form.name": "Name *", "form.email": "Email *", "form.phone": "Phone",
       "form.qty": "Quantity", "form.part": "Part Number / Description *", "form.message": "Additional Details",
       "form.submit": "Send Inquiry", "form.note": "This opens your email app with your inquiry pre-filled, addressed directly to us.",
-      "footer.division": "A division of Trafalgar", "footer.copyright": "&copy; 2026 Trafalgar Aviation."
+      "footer.division": "A division of <a href=\"https://trafalgarfuels.com/\" target=\"_blank\" rel=\"noopener\">Trafalgar</a>", "footer.copyright": "&copy; 2026 Trafalgar Aviation."
     }
   };
 
@@ -593,7 +595,7 @@ img { max-width: 100%; }
       if (message) lines.push('', 'Additional Details:', message);
 
       var subject = 'Parts Inquiry from ' + name;
-      var mailto = 'mailto:fkhan698@hotmail.com'
+      var mailto = 'mailto:Info@consulttrafalgar.com'
         + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(lines.join('\n'));
       window.location.href = mailto;
